@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<title>Share File</title>
+<script type="text/javascript" language="javascript">
+function tofile(isdir, f){
+	if(isdir=='True'){
+		console.log("To Dir:", f);
+		document.getElementById('filenav').action="/filelist";
+		document.getElementById('todir').value = f;
+		document.getElementById('filenav').submit();
+	}else{
+		console.log("Get File:", f);
+		if(confirm("You are going to download the file: "+f)){
+			document.getElementById('filenav').action="/download";
+			document.getElementById('todir').value = f;
+			document.getElementById('filenav').submit();
+		}
+	}
+}
+function cd(dir_name){
+	
+	
+}
+</script>
+<style type="text/css">
+.errorMessage {
+	color:red;
+}
+a {
+	text-decoration:none;
+}
+a:hover {
+	/*background-color:#FFFFBB;*/
+	color:green;
+	text-decoration:underline;
+}
+tr {
+	height: 30px;
+}
+</style>
+</head>
+<body>
+
+<h3>File List</h3>
+<h4>Current Dir: {{rs.current_dir}}</h4>
+<table width="600" border="1" style="border-collapse:collapse;">   
+	<tr bgColor="#CCFFFF" >
+		<td>Type</td>
+		<td width="200">Files:</td>
+		<td>Bytes</td>
+	</tr>
+	<tr><td>D</td><td><a href="javascript:tofile('True','..');" >..</a></td><td>-</td></tr>
+	{% for f in rs.filelist %}
+	<tr>
+		<td width="25">{% if f.0: %} D {% else %} F {% endif%}</td>
+		<td> <a href="javascript:tofile('{{f.0}}','{{f.1}}');" >{{f.1}}</a></td>
+		<td width="25">{{f.2}}</td>
+	</tr>
+	{% endfor %}
+</table>
+<form name="filenav" id="filenav" action="/file_list" method="post">
+<input type="hidden" id="todir" name="todir" value="" />
+<input type="hidden" id="current_dir" name="current_dir" value="{{rs.current_dir}}" />
+</form>
+</body>
+</html>
