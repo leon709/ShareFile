@@ -11,7 +11,7 @@ import util
 
 log = mylogger.get_instance()
 
-home_path = "D:/JavaOpenSource/"
+home_path = "/home/leon"  # linux style path, should change this path value if in windows
 UPLOAD_FOLDER = home_path
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -51,9 +51,18 @@ def filelist():
             fsize = os.path.getsize(abs_path)
             flist.append((False, f, util.getSizeInNiceString(fsize)))
     
-    current_dir = "/".join([p for p in next_dir.split("/") if p])
+    current_dir = format_path_spliter(next_dir)
+    flist.sort(cmp=None, key=None, reverse=True)
     rs = {'filelist':flist, "todir":"", "current_dir":current_dir}
     return render_template('filelist.html', rs=rs)	
+
+
+def format_path_spliter(s, spliter="/"):
+    """
+    Remove the duplicate spliter
+    """
+    path_begin = spliter if s.startswith(spliter) else ""  # windows or linux path
+    return path_begin + spliter.join([p for p in s.split(spliter) if p])
 
 @app.route('/login', methods=['POST', 'GET'])
 def login():

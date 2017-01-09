@@ -3,25 +3,42 @@
 <head>
 <title>Share File</title>
 <script type="text/javascript" language="javascript">
+/*common method to submit form*/
+function submitForm(formId, formAction){
+	var frm = document.getElementById(formId);
+	frm.action=formAction;
+	frm.submit();
+}
+/*JS trim method*/
+function trim(str){
+	var s=str.replace(/^\s\s*/,'').replace(/\s\s*$/,'');
+	return s;
+}
 function tofile(isdir, f){
 	if(isdir=='True'){
-		console.log("To Dir:", f);
-		document.getElementById('filenav').action="/filelist";
 		document.getElementById('todir').value = f;
-		document.getElementById('filenav').submit();
+		submitForm("filenav", "/filelist");
 	}else{
-		console.log("Get File:", f);
 		if(confirm("You are going to download the file: "+f)){
-			document.getElementById('filenav').action="/download";
 			document.getElementById('todir').value = f;
-			document.getElementById('filenav').submit();
+			submitForm("filenav", "/download");
 		}
 	}
 }
-function cd(dir_name){
-	
+function cd(){
+	cd_dir = document.getElementById('cd_dir').value;
+	cd_dir = trim(cd_dir);
+	if (cd_dir == ""){
+		alert("Dir cannot be empty!");
+		document.getElementById('cd_dir').value="";
+		return
+	}
+	document.getElementById('current_dir').value = cd_dir;
+	document.getElementById('todir').value = "";
+	submitForm("filenav", "/filelist");
 	
 }
+
 </script>
 <style type="text/css">
 .errorMessage {
@@ -44,6 +61,7 @@ tr {
 
 <h3>File List</h3>
 <h4>Current Dir: {{rs.current_dir}}</h4>
+<h4>cd: <input value="" id="cd_dir" /> <input type="button" value="GO" onclick="cd();" /> </h4>
 <table width="600" border="1" style="border-collapse:collapse;">   
 	<tr bgColor="#CCFFFF" >
 		<td>Type</td>
