@@ -1,6 +1,6 @@
 ﻿# -*- coding:utf-8 -*-
 
-def getSizeInNiceString(sizeInBytes):
+def getFileSizeString(sizeInBytes):
     """
     Convert the given byteCount into a string like: 9.9bytes/KB/MB/GB
     """
@@ -18,8 +18,8 @@ def getSizeInNiceString(sizeInBytes):
         return (byte_str[:-2] if byte_str.endswith('.0') else byte_str) + ' bytes'
     
 if __name__ == "__main__":
-    print getSizeInNiceString(189077245)
-    print getSizeInNiceString(1718)
-    print getSizeInNiceString(85)
-    print getSizeInNiceString(185)
+    print getFileSizeString(189077245)
+    print getFileSizeString(1718)
+    print getFileSizeString(85)
+    print getFileSizeString(185)
     

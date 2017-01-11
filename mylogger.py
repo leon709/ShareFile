@@ -36,7 +36,7 @@ LOGGING = {
     }
 }
 
-LOG_PATH = "E:/logs"
+LOG_PATH = "logs/"  # will create log files in the same dir of startup.py
 
 class mylogger(object):
     
