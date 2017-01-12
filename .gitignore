@@ -95,5 +95,8 @@ activate
 .pydevproject
 .settings
 
+## logs
+logs/
+
 ## project local settings
 settings_local.py
