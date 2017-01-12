@@ -10,8 +10,10 @@ from mylogger import mylogger
 
 log = mylogger.get_instance()
 
-HOME_PATH = "/home/"  
+HOME_PATH = "/home/"
 
 DEBUG = False
 
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+
+SHARE_PATH = HOME_PATH + "share/"

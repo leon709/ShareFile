@@ -96,7 +96,7 @@ def download():
 
 @app.route('/getfile/<filename>', methods=['POST', 'GET'])
 def getfile(filename):
-    file_path = "D:/JavaOpenSource/"
+    file_path = settings.SHARE_PATH
     file_abs_path = file_path+filename
     log.info("Downloading file: %s", file_abs_path)
     response = make_response(send_file(file_abs_path))
