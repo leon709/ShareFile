@@ -60,8 +60,15 @@ tr {
 <body>
 
 <h3>File List</h3>
-<h4>Current Dir: {{rs.current_dir}}</h4>
+<h4>Current Dir: {{rs.current_dir}} </h4>
+file count: {{rs.filelist | length}}
 <h4>cd: <input value="" id="cd_dir" /> <input type="button" value="GO" onclick="cd();" /> </h4>
+<form action="/upload" enctype='multipart/form-data' method='POST'>
+    <input type="file" name="file">
+    <input type="submit" value="upload">
+    <input type="hidden" id="current_dir1" name="current_dir" value="{{rs.current_dir}}" />
+</form>
+<br>
 <table width="600" border="1" style="border-collapse:collapse;">   
 	<tr bgColor="#CCFFFF" >
 		<td>Type</td>
